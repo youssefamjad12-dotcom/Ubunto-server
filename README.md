@@ -1,19 +1,15 @@
-# Ubunto Server
+ # Ubuntu Server Installation on VMware
 
+ ## Goal
 
-````
-# Ubuntu Server Installation on VMware
+ Create a VMware virtual machine and install **Ubuntu Server 24.04 LTS** as the operating system for a Wazuh server.
 
-## Goal
+ ### VM Specifications
 
-Create a VMware virtual machine and install Ubuntu Server.
-
-VM specifications for the Wazuh server:
-
-| Setting | Value |
-|---|---|
-| OS | Ubuntu Server 24.04 LTS |
-| CPU | 4 CPU cores |
+ | Setting | Value |
+| --- | --- |
+| Operating System | Ubuntu Server 24.04 LTS |
+| CPU | 4 vCPUs |
 | RAM | 8 GB |
 | Disk | 100 GB |
 | Network | NAT or Bridged |
@@ -23,25 +19,25 @@ VM specifications for the Wazuh server:
 
 ---
 
-# 1. Download Ubuntu Server ISO
+ ## 1\. Download the Ubuntu Server ISO
 
-Download Ubuntu Server 24.04 LTS ISO from the official Ubuntu website:
+ Download the Ubuntu Server 24.04 LTS ISO from the official Ubuntu website:
 
-https://ubuntu.com/download/server
+ https://ubuntu.com/download/server
 
-Download the:
+ Download:
 
-```text
+```
 Ubuntu Server 24.04 LTS
-````
+```
 
- The file should look similar to:
+ The file name should look similar to:
 
 ```
 ubuntu-24.04.x-live-server-amd64.iso
 ```
 
- Save the ISO somewhere easy to find.
+ Save the ISO somewhere that is easy to find.
 
  Example:
 
@@ -51,7 +47,7 @@ C:\ISO\ubuntu-24.04.x-live-server-amd64.iso
 
 ---
 
- # 2\. Open VMware
+ ## 2\. Open VMware
 
  Open:
 
@@ -65,7 +61,7 @@ VMware Workstation
 Create a New Virtual Machine
 ```
 
- You can also use:
+ Alternatively, use:
 
 ```
 File
@@ -75,13 +71,9 @@ New Virtual Machine
 
 ---
 
- # 3\. Select Virtual Machine Type
+ ## 3\. Select the Virtual Machine Type
 
- VMware will show:
-
-```
-New Virtual Machine Wizard
-```
+ VMware will display the **New Virtual Machine Wizard**.
 
  Select:
 
@@ -97,7 +89,7 @@ Next
 
 ---
 
- # 4\. Select Ubuntu ISO
+ ## 4\. Select the Ubuntu ISO
 
  VMware will ask:
 
@@ -133,11 +125,9 @@ Next
 
 ---
 
- # 5\. Easy Install
+ ## 5\. Easy Install
 
- VMware may automatically detect Ubuntu.
-
- You may see fields such as:
+ VMware may automatically detect Ubuntu and display fields such as:
 
 ```
 Full name
@@ -166,12 +156,11 @@ Use Easy Install
 
  you can use it.
 
- However, for learning and troubleshooting, it is often easier to install Ubuntu manually.
+ However, for learning and troubleshooting, a manual Ubuntu installation can be easier to understand.
 
- If you want a manual installation:
+ If you want to perform the installation manually, select:
 
 ```
-Select:
 I will install the operating system later
 ```
 
@@ -181,19 +170,13 @@ I will install the operating system later
 Next
 ```
 
- If you choose manual installation, attach the Ubuntu ISO later.
+ If you choose the manual installation option, attach the Ubuntu ISO to the VM later.
 
 ---
 
- # 6\. Select Guest Operating System
+ ## 6\. Select the Guest Operating System
 
- If VMware asks:
-
-```
-Guest Operating System
-```
-
- Select:
+ If VMware asks for the guest operating system, select:
 
 ```
 Linux
@@ -213,17 +196,9 @@ Next
 
 ---
 
- # 7\. Name the Virtual Machine
+ ## 7\. Name the Virtual Machine
 
- Set:
-
-```
-Virtual machine name:
-
-Wazuh-Server
-```
-
- Example:
+ Set the virtual machine name to:
 
 ```
 Wazuh-Server
@@ -245,9 +220,9 @@ Next
 
 ---
 
- # 8\. Configure Virtual Disk
+ ## 8\. Configure the Virtual Disk
 
- VMware will ask for disk size.
+ VMware will ask for the disk size.
 
  Set:
 
@@ -255,7 +230,7 @@ Next
 100 GB
 ```
 
- For Wazuh, 100 GB is a good starting point for a small lab.
+ For a small Wazuh lab, 100 GB is a reasonable starting point. Actual storage requirements depend on the number of agents, event volume, retention period, and other Wazuh configuration choices.
 
  Select:
 
@@ -271,7 +246,7 @@ Next
 
 ---
 
- # 9\. Customize Hardware
+ ## 9\. Customize Hardware
 
  Before finishing the VM creation, click:
 
@@ -279,18 +254,18 @@ Next
 Customize Hardware
 ```
 
- We need to configure:
+ Configure the following:
 
 ```
 CPU
-RAM
-Network
+Memory
+Network Adapter
 CD/DVD
 ```
 
 ---
 
- # 10\. Configure RAM
+ ## 10\. Configure RAM
 
  Select:
 
@@ -314,13 +289,12 @@ Memory
 
 ```
 Memory:
-
 8192 MB
 ```
 
- Do not give all of your physical computer's RAM to the VM.
+ Do not allocate all of your physical computer's RAM to the VM.
 
- For example, if your physical computer has 16 GB RAM:
+ For example, if your physical computer has 16 GB of RAM:
 
 ```
 Physical PC:
@@ -333,9 +307,11 @@ Remaining:
 ~8 GB
 ```
 
+ The host operating system and other applications also need sufficient memory.
+
 ---
 
- # 11\. Configure CPU
+ ## 11\. Configure CPU
 
  Select:
 
@@ -353,13 +329,14 @@ Number of cores per processor:
 4
 ```
 
- Total:
+ This gives the VM:
 
 ```
-4 vCPU
+Total:
+4 vCPUs
 ```
 
- You can also configure:
+ You could also configure:
 
 ```
 Number of processors:
@@ -369,22 +346,18 @@ Number of cores per processor:
 1
 ```
 
- The important part is:
-
-```
-Total CPU cores = 4
-```
-
- Recommended:
+ For this lab, the recommended configuration is:
 
 ```
 Processors: 1
 Cores per processor: 4
 ```
 
+ The important point is that the VM has a total of **4 vCPUs**.
+
 ---
 
- # 12\. Configure Network
+ ## 12\. Configure the Network
 
  Select:
 
@@ -392,7 +365,7 @@ Cores per processor: 4
 Network Adapter
 ```
 
- You will normally see:
+ You will normally see options such as:
 
 ```
 NAT
@@ -414,7 +387,7 @@ Bridged
 
 ---
 
- # 13\. Option A — NAT
+ ## 13\. Option A — NAT Networking
 
  Choose:
 
@@ -439,17 +412,17 @@ VMware NAT
 Ubuntu VM
 ```
 
- This is easy and usually works immediately.
+ NAT is easy to configure and usually works without additional network configuration.
 
  Use NAT if you mainly need:
 
 ```
-Ubuntu -> Internet
+Ubuntu VM -> Internet
 ```
 
 ---
 
- # 14\. Option B — Bridged Network
+ ## 14\. Option B — Bridged Networking
 
  Choose:
 
@@ -457,7 +430,7 @@ Ubuntu -> Internet
 Bridged
 ```
 
- The Ubuntu VM becomes another machine on your physical network.
+ With bridged networking, the Ubuntu VM appears as another device on your physical network.
 
  Example:
 
@@ -484,15 +457,15 @@ Router:
 192.168.1.1
 ```
 
- This is useful if other machines need to communicate directly with your Wazuh server.
+ The actual IP addresses will depend on your network.
 
- For a Wazuh lab where you plan to install agents on other machines, **Bridged** is often convenient.
+ Bridged networking can be convenient when other physical machines need to communicate directly with the Wazuh server.
 
 ---
 
- # 15\. Recommended Network Configuration
+ ## 15\. Recommended Network Configuration
 
- For this Wazuh lab:
+ For a Wazuh lab, you can use:
 
 ```
 Network Adapter:
@@ -502,17 +475,17 @@ Connect at power on:
 Enabled
 ```
 
- If Bridged does not work in your environment, use:
+ If Bridged networking does not work in your environment, use:
 
 ```
 NAT
 ```
 
- You can change this later.
+ You can change the network mode later.
 
 ---
 
- # 16\. Configure CD/DVD
+ ## 16\. Configure CD/DVD
 
  Select:
 
@@ -548,13 +521,13 @@ Connect at power on
 
 ---
 
- # 17\. Recommended Final VM Hardware
+ ## 17\. Verify the Final VM Hardware
 
- Before closing the hardware settings, verify:
+ Before closing the hardware settings, verify the following:
 
 ```
 CPU:
-4 cores
+4 vCPUs
 
 RAM:
 8192 MB
@@ -568,19 +541,15 @@ Bridged
 CD/DVD:
 Ubuntu Server ISO
 
-USB:
-Default
-
-Sound:
-Default
-
-Display:
-Default
+Firmware:
+UEFI
 ```
+
+ Other devices can normally remain at their default settings unless you have a specific requirement.
 
 ---
 
- # 18\. Finish VM Creation
+ ## 18\. Finish VM Creation
 
  Click:
 
@@ -604,7 +573,7 @@ Wazuh-Server
 
 ---
 
- # 19\. Start the VM
+ ## 19\. Start the VM
 
  Select:
 
@@ -618,17 +587,19 @@ Wazuh-Server
 Power on this virtual machine
 ```
 
- Ubuntu should start booting.
+ Ubuntu should begin booting.
 
 ---
 
- # 20\. Ubuntu Server Boot Screen
+ # Ubuntu Server Installation
+
+ ## 20\. Ubuntu Server Boot Screen
 
  You should see the Ubuntu Server installer.
 
  Wait for the installer to load.
 
- You should eventually see:
+ You should eventually see a screen similar to:
 
 ```
 Welcome to Ubuntu
@@ -636,7 +607,7 @@ Welcome to Ubuntu
 
 ---
 
- # 21\. Select Language
+ ## 21\. Select the Language
 
  Choose:
 
@@ -644,13 +615,7 @@ Welcome to Ubuntu
 English
 ```
 
- Press:
-
-```
-Enter
-```
-
- or click:
+ Then select:
 
 ```
 Done
@@ -658,7 +623,7 @@ Done
 
 ---
 
- # 22\. Keyboard Layout
+ ## 22\. Configure the Keyboard Layout
 
  Select your keyboard layout.
 
@@ -668,7 +633,7 @@ Done
 English (US)
 ```
 
- Then:
+ Then select:
 
 ```
 Done
@@ -676,27 +641,25 @@ Done
 
 ---
 
- # 23\. Ubuntu Installation Type
+ ## 23\. Select the Ubuntu Installation Type
 
- Ubuntu Server will show installation options.
+ Ubuntu Server will display the available installation options.
 
- Choose the standard Ubuntu Server installation.
-
- For example:
+ Select the standard:
 
 ```
 Ubuntu Server
 ```
 
- Continue.
+ Continue with the installation.
 
 ---
 
- # 24\. Configure Network
+ ## 24\. Configure the Network
 
  Ubuntu should automatically detect the VMware network adapter.
 
- You may see something similar to:
+ You may see an interface such as:
 
 ```
 enp2s0
@@ -716,26 +679,19 @@ DHCP
 192.168.1.50/24
 ```
 
- If you receive an IP address automatically:
-
-```
-DHCP
-```
-
- you can continue for now.
+ If Ubuntu automatically receives an IP address through DHCP, you can continue with DHCP for now.
 
 ---
 
- # 25\. Check Network Information
+ ## 25\. Check the Network Information
 
- You may see:
+ You may see an IP address such as:
 
 ```
-IP Address:
 192.168.1.50
 ```
 
- Write this address down.
+ Write down the IP address.
 
  Your actual address will probably be different.
 
@@ -749,11 +705,11 @@ Ubuntu VM IP:
 
 ---
 
- # 26\. Static IP — Optional During Installation
+ ## 26\. Static IP — Optional During Installation
 
- For a Wazuh server, a static IP is recommended.
+ A static IP address is useful for a server such as Wazuh because other systems may need to connect to it.
 
- If you already know your network configuration, you can configure it now.
+ If you already know your network configuration, you can configure a static IP during installation.
 
  Example:
 
@@ -771,21 +727,21 @@ DNS:
 8.8.8.8
 ```
 
- Do NOT blindly use these values.
+ **Do not blindly use these values.**
 
- Use the values appropriate for your network.
+ Use the network settings appropriate for your environment.
 
- If you are not sure, select:
+ If you are unsure about your network configuration, select:
 
 ```
 DHCP
 ```
 
- and configure the static IP after Ubuntu installation.
+ and configure a static address later.
 
 ---
 
- # 27\. Proxy Configuration
+ ## 27\. Proxy Configuration
 
  Ubuntu may ask:
 
@@ -793,13 +749,9 @@ DHCP
 Configure proxy
 ```
 
- If you do not use a proxy:
+ If you do not use a proxy, leave the field blank.
 
-```
-Leave blank
-```
-
- Then:
+ Then select:
 
 ```
 Done
@@ -807,17 +759,17 @@ Done
 
 ---
 
- # 28\. Ubuntu Archive Mirror
+ ## 28\. Ubuntu Archive Mirror
 
- Ubuntu may show:
+ Ubuntu may display:
 
 ```
 Ubuntu archive mirror
 ```
 
- Leave the default unless you have a specific reason to change it.
+ Leave the default mirror unless you have a specific reason to change it.
 
- Click:
+ Select:
 
 ```
 Done
@@ -827,11 +779,11 @@ Done
 
 ---
 
- # 29\. Storage Configuration
+ ## 29\. Configure Storage
 
- Ubuntu will ask how to configure storage.
+ Ubuntu will ask how you want to configure the storage.
 
- For a dedicated Wazuh VM, you can use:
+ For a dedicated Wazuh lab VM, you can select:
 
 ```
 Use an entire disk
@@ -845,7 +797,7 @@ Use an entire disk
 100 GB
 ```
 
- Example:
+ For example:
 
 ```
 /dev/sda
@@ -854,19 +806,19 @@ Use an entire disk
 
 ---
 
- # 30\. Storage Layout
+ ## 30\. Review the Storage Layout
 
- For a simple Wazuh lab, use:
+ For a simple Wazuh lab, you can use:
 
 ```
 Use an entire disk
 ```
 
- You do not need a complicated partition layout.
+ You do not need a complicated partition layout for this basic installation.
 
  Ubuntu will create the required partitions.
 
- Review the storage configuration carefully.
+ Review the proposed storage configuration carefully.
 
  Then select:
 
@@ -874,7 +826,7 @@ Use an entire disk
 Done
 ```
 
- Ubuntu will warn that data will be destroyed.
+ Ubuntu will warn that existing data on the selected disk will be destroyed.
 
  Because this is a new VMware virtual disk, select:
 
@@ -884,7 +836,7 @@ Continue
 
 ---
 
- # 31\. Create Ubuntu User
+ ## 31\. Create the Ubuntu User
 
  Ubuntu will ask for your profile information.
 
@@ -904,7 +856,7 @@ Password:
 YOUR_STRONG_PASSWORD
 ```
 
- Example:
+ For example:
 
 ```
 Name:
@@ -921,26 +873,26 @@ wazuhadmin
 
 ---
 
- # 32\. Server Name
+ ## 32\. Set the Server Name
 
- Set:
+ Set the hostname to:
 
 ```
 wazuh-server
 ```
 
- This will become the Ubuntu hostname.
-
- Example:
+ For example:
 
 ```
 Your server's name:
 wazuh-server
 ```
 
+ This will become the Ubuntu hostname.
+
 ---
 
- # 33\. SSH Configuration
+ ## 33\. Configure SSH
 
  Ubuntu will ask:
 
@@ -954,35 +906,35 @@ Install OpenSSH server?
 Install OpenSSH server
 ```
 
- This is recommended.
+ This is useful because it allows you to connect to the server remotely.
 
- It allows you to connect remotely:
+ For example:
 
 ```
 ssh wazuhadmin@SERVER_IP
 ```
 
- Continue.
+ Continue with the installation.
 
 ---
 
- # 34\. Additional Server Software
+ ## 34\. Additional Server Software
 
  Ubuntu may offer additional packages or applications.
 
- For the initial Wazuh server:
+ For the initial Wazuh server installation:
 
 ```
-Do not select unnecessary additional software
+Do not select unnecessary additional software.
 ```
 
- You can install software later.
+ You can install additional software later when required.
 
- Continue.
+ Continue with the installation.
 
 ---
 
- # 35\. Start Ubuntu Installation
+ ## 35\. Start the Ubuntu Installation
 
  Ubuntu will now install the operating system.
 
@@ -994,13 +946,13 @@ Installing system
 
  Wait for the installation to finish.
 
- Do not power off the VM.
+ Do not power off the VM during the installation.
 
 ---
 
- # 36\. Installation Complete
+ ## 36\. Installation Complete
 
- When Ubuntu finishes, you should see:
+ When the installation finishes, you should see:
 
 ```
 Install complete
@@ -1014,11 +966,11 @@ Reboot Now
 
 ---
 
- # 37\. Remove Ubuntu ISO
+ ## 37\. Remove the Ubuntu ISO
 
- After reboot, VMware may ask you to remove the installation media.
+ After the VM reboots, VMware may still have the Ubuntu ISO connected.
 
- If necessary:
+ If necessary, open:
 
 ```
 VM
@@ -1028,29 +980,29 @@ Settings
 CD/DVD
 ```
 
- Disconnect the ISO.
-
- Or select:
+ Disconnect the ISO or disable:
 
 ```
-Disconnect
+Connect at power on
 ```
 
- Then reboot the VM.
+ Then reboot the VM if necessary.
 
- This prevents VMware from starting the Ubuntu installer again.
+ This prevents VMware from booting into the Ubuntu installer again.
 
 ---
 
- # 38\. First Ubuntu Boot
+ # First Ubuntu Boot
 
- After reboot, you should see something similar to:
+ ## 38\. First Ubuntu Boot
+
+ After rebooting, you should see something similar to:
 
 ```
 Ubuntu 24.04 LTS wazuh-server tty1
 ```
 
- You will also see:
+ You should also see:
 
 ```
 wazuh-server login:
@@ -1058,9 +1010,9 @@ wazuh-server login:
 
 ---
 
- # 39\. Login
+ ## 39\. Log In
 
- Enter the username you created.
+ Enter the username you created during installation.
 
  Example:
 
@@ -1075,7 +1027,7 @@ wazuhadmin
 
 ---
 
- # 40\. Check Hostname
+ ## 40\. Check the Hostname
 
  Run:
 
@@ -1083,7 +1035,7 @@ wazuhadmin
 hostname
 ```
 
- Expected:
+ Expected output:
 
 ```
 wazuh-server
@@ -1091,7 +1043,7 @@ wazuh-server
 
 ---
 
- # 41\. Check IP Address
+ ## 41\. Check the IP Address
 
  Run:
 
@@ -1108,7 +1060,7 @@ enp2s0:
     inet 192.168.1.50/24
 ```
 
- You can use the easier command:
+ You can also use the simpler command:
 
 ```
 hostname -I
@@ -1120,11 +1072,11 @@ hostname -I
 192.168.1.50
 ```
 
- Write down this IP.
+ Write down this IP address.
 
 ---
 
- # 42\. Check Internet
+ ## 42\. Test Internet Connectivity
 
  Run:
 
@@ -1132,9 +1084,7 @@ hostname -I
 ping -c 4 google.com
 ```
 
- You should receive replies.
-
- Example:
+ You should receive replies similar to:
 
 ```
 64 bytes from ...
@@ -1143,17 +1093,15 @@ ping -c 4 google.com
 64 bytes from ...
 ```
 
- If this works:
+ If this works, the following connection is working:
 
 ```
 Ubuntu VM -> Internet
 ```
 
- is working.
-
 ---
 
- # 43\. Check DNS
+ ## 43\. Test DNS Resolution
 
  Run:
 
@@ -1163,9 +1111,11 @@ getent hosts google.com
 
  You should receive an IP address.
 
+ This confirms that DNS resolution is working.
+
 ---
 
- # 44\. Check CPU
+ ## 44\. Check CPU
 
  Run:
 
@@ -1173,7 +1123,7 @@ getent hosts google.com
 nproc
 ```
 
- Expected:
+ Expected output:
 
 ```
 4
@@ -1181,7 +1131,7 @@ nproc
 
 ---
 
- # 45\. Check RAM
+ ## 45\. Check RAM
 
  Run:
 
@@ -1192,15 +1142,14 @@ free -h
  You should see approximately:
 
 ```
-total
 7.5Gi
 ```
 
- The exact number may be slightly lower than 8 GB.
+ The exact amount may be slightly lower than 8 GB because of system and virtualization overhead.
 
 ---
 
- # 46\. Check Disk
+ ## 46\. Check Disk Space
 
  Run:
 
@@ -1215,11 +1164,13 @@ df -h
 100G
 ```
 
- The exact output depends on the Ubuntu partition layout.
+ The exact output depends on Ubuntu's partition layout and filesystem configuration.
 
 ---
 
- # 47\. Update Ubuntu
+ # Update Ubuntu
+
+ ## 47\. Update Ubuntu
 
  Run:
 
@@ -1233,11 +1184,11 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
- Wait for the update to finish.
+ Wait for the updates to finish.
 
 ---
 
- # 48\. Reboot After Updates
+ ## 48\. Reboot After Updates
 
  Run:
 
@@ -1247,11 +1198,13 @@ sudo reboot
 
  Wait for Ubuntu to restart.
 
- Login again.
+ Then log in again.
 
 ---
 
- # 49\. Test SSH From Your Computer
+ # Test SSH
+
+ ## 49\. Test SSH from Your Computer
 
  From your Windows computer, open PowerShell.
 
@@ -1267,7 +1220,7 @@ ssh wazuhadmin@192.168.1.50
 192.168.1.50
 ```
 
- with the IP of your Ubuntu VM.
+ with the actual IP address of your Ubuntu VM.
 
  Example:
 
@@ -1275,9 +1228,9 @@ ssh wazuhadmin@192.168.1.50
 ssh wazuhadmin@192.168.1.50
 ```
 
- Enter your Ubuntu password.
+ Enter your Ubuntu password when prompted.
 
- If you can login:
+ If the connection succeeds:
 
 ```
 Windows PC
@@ -1291,15 +1244,15 @@ Ubuntu VM
 
 ---
 
- # 50\. Check SSH Service
+ ## 50\. Check the SSH Service
 
- Inside Ubuntu:
+ Inside Ubuntu, run:
 
 ```
 sudo systemctl status ssh
 ```
 
- You want:
+ You want to see:
 
 ```
 Active: active (running)
@@ -1311,11 +1264,13 @@ Active: active (running)
 q
 ```
 
- to exit.
+ to exit the status screen.
 
 ---
 
- # 51\. Check Network Configuration
+ # Verify the Network
+
+ ## 51\. Check the Network Configuration
 
  Run:
 
@@ -1337,9 +1292,13 @@ ip route
 default via 192.168.1.1
 ```
 
+ The actual gateway will depend on your network.
+
 ---
 
- # 52\. Final Ubuntu VM Check
+ # Final Verification
+
+ ## 52\. Run a Final Ubuntu Server Check
 
  Run:
 
@@ -1366,7 +1325,7 @@ echo "===== SSH ====="
 systemctl is-active ssh
 ```
 
- Expected:
+ Expected output should look approximately like:
 
 ```
 ===== HOSTNAME =====
@@ -1391,11 +1350,13 @@ default via 192.168.1.1
 active
 ```
 
+ Your IP address and network gateway will depend on your environment.
+
 ---
 
- # 53\. VMware VM Final Configuration
+ # 53\. Final VMware VM Configuration
 
- Your VMware VM should now look approximately like:
+ Your VMware VM should now look approximately like this:
 
 ```
 VM Name:
@@ -1405,7 +1366,7 @@ Operating System:
 Ubuntu Server 24.04 LTS
 
 CPU:
-4 cores
+4 vCPUs
 
 RAM:
 8 GB
@@ -1431,9 +1392,9 @@ wazuh-server
 
 ---
 
- # 54\. Network Architecture
+ # 54\. Network Architecture — Bridged Mode
 
- If using Bridged networking:
+ If you are using Bridged networking, the architecture may look like this:
 
 ```
                  INTERNET
@@ -1460,7 +1421,7 @@ wazuh-server
 
 ---
 
- # 55\. If Using NAT
+ # 55\. Network Architecture — NAT Mode
 
  If you selected NAT instead of Bridged:
 
@@ -1477,21 +1438,21 @@ wazuh-server
               wazuh-server
 ```
 
- The Ubuntu VM will receive a VMware NAT address.
+ The Ubuntu VM will receive an IP address from the VMware NAT network.
 
- Check it with:
+ Check the IP address with:
 
 ```
 hostname -I
 ```
 
- NAT is fine for testing Wazuh, but if other physical machines need to connect directly to your Wazuh server, Bridged networking is often easier.
+ NAT is suitable for testing Wazuh. However, if other physical machines need to communicate directly with your Wazuh server, Bridged networking may be more convenient.
 
 ---
 
- # 56\. Ubuntu Server Installation Is Complete
+ # 56\. Ubuntu Server Installation Complete
 
- At this point you have:
+ At this point, you have:
 
 ```
 VMware
@@ -1500,7 +1461,7 @@ VMware
           |
           +-- Ubuntu Server 24.04 LTS
           |
-          +-- 4 CPU cores
+          +-- 4 vCPUs
           |
           +-- 8 GB RAM
           |
@@ -1510,7 +1471,7 @@ VMware
           |
           +-- SSH
           |
-          +-- Internet
+          +-- Internet Connectivity
 ```
 
  The Ubuntu Server VM is now ready for the next stage:
@@ -1529,6 +1490,4 @@ Wazuh Installation
 
  # END
 
-```
-Have a nice day
-```
+ Have a nice day!
