@@ -1,4 +1,4 @@
-# Ubunto-server
+# Ubunto Server
 
 
 ````
