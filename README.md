@@ -1530,5 +1530,5 @@ Wazuh Installation
  # END
 
 ```
-
+Have a nice day
 ```
