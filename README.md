@@ -11,7 +11,7 @@
 | Operating System | Ubuntu Server 24.04 LTS |
 | CPU | 4 vCPUs |
 | RAM | 8 GB |
-| Disk | 100 GB |
+| Disk | 60 GB |
 | Network | NAT or Bridged |
 | Firmware | UEFI |
 | VM Name | Wazuh-Server |
